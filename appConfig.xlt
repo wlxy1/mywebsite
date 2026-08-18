@@ -1,11 +1,11 @@
 {
-	"appName": "index.html",
+	"appName": "1",
 	"appPackageName": "index.html",
 	"appVersionName": "1.0",
 	"appVersionCode": 100000,
 	"data": {		
 		"启用顶栏": true,
-		"顶栏标题": "index.html",
+		"顶栏标题": "1",
 		"顶栏颜色": "#FF2C2E43",
 		"横屏": false,
 		"显示状态栏": true,
