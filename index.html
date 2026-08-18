@@ -6,28 +6,38 @@
     <title>弦月剑仙 - 个人主页</title>
     <meta name="description" content="弦月剑仙的个人主页，分享内容创作与生活记录。">
     <meta name="theme-color" content="#4285F4">
+
+    <!-- 预连接优化 -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://challenges.cloudflare.com">
+
+    <!-- Font Awesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Cloudflare Turnstile 脚本 -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+    <!-- 主题初始化脚本：防止闪烁 -->
     <script>
-        // 主题初始化
         (function() {
             try {
-                const saved = localStorage.getItem('theme');
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                var saved = localStorage.getItem('theme');
+                var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
                 if (saved === 'dark' || (!saved && prefersDark)) {
                     document.documentElement.classList.add('dark-mode');
                 }
-            } catch (_) {}
+            } catch (e) {}
         })();
     </script>
+
     <style>
+        /* ============ CSS 变量 ============ */
         :root {
             --google-blue: #4285F4;
             --google-red: #EA4335;
             --google-yellow: #FBBC05;
             --google-green: #34A853;
+
             --bg: #FFFFFF;
             --bg-card: #FFFFFF;
             --text-primary: #202124;
@@ -35,18 +45,23 @@
             --text-muted: #9AA0A6;
             --border-color: #DADCE0;
             --hover-bg: #F1F3F4;
-            --shadow-sm: 0 1px 2px rgba(60,64,67,0.1);
-            --shadow-md: 0 2px 8px rgba(60,64,67,0.15);
-            --shadow-lg: 0 4px 16px rgba(60,64,67,0.2);
+
+            --shadow-sm: 0 1px 2px rgba(60, 64, 67, 0.1);
+            --shadow-md: 0 2px 8px rgba(60, 64, 67, 0.15);
+            --shadow-lg: 0 4px 16px rgba(60, 64, 67, 0.2);
+
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-full: 50px;
+
             --transition: 0.2s ease;
-            --theme-transition: 0.5s cubic-bezier(0.4,0,0.2,1);
+            --theme-transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
             --nav-height: 60px;
-            --nav-bg: rgba(255,255,255,0.95);
+            --nav-bg: rgba(255, 255, 255, 0.95);
             --nav-border: #DADCE0;
         }
+
         .dark-mode {
             --bg: #202124;
             --bg-card: #2D2E31;
@@ -55,219 +70,767 @@
             --text-muted: #80868B;
             --border-color: #3C4043;
             --hover-bg: #3C4043;
-            --nav-bg: rgba(32,33,36,0.95);
+            --nav-bg: rgba(32, 33, 36, 0.95);
             --nav-border: #3C4043;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-            --shadow-md: 0 2px 8px rgba(0,0,0,0.4);
-            --shadow-lg: 0 4px 16px rgba(0,0,0,0.5);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.5);
         }
-        *{margin:0;padding:0;box-sizing:border-box}
-        html{scroll-behavior:smooth}
-        body{font-family:'Google Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.6;font-size:15px;transition:background var(--theme-transition),color var(--theme-transition);min-height:100vh;display:flex;flex-direction:column}
-        a{color:var(--google-blue);text-decoration:none;transition:color var(--theme-transition)}
-        a:hover{text-decoration:underline}
-        img{max-width:100%;height:auto;display:block}
-        button{background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;color:inherit}
-        :focus-visible{outline:2px solid var(--google-blue);outline-offset:2px}
 
-        /* Turnstile Overlay */
-        .turnstile-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:24px;transition:opacity .5s,visibility .5s}
-        .turnstile-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
-        .turnstile-box{text-align:center;max-width:400px;width:100%}
-        .turnstile-logo{font-size:2.5rem;color:var(--google-blue);margin-bottom:16px}
-        .turnstile-title{font-size:1.2rem;font-weight:600;color:var(--text-primary);margin-bottom:8px}
-        .turnstile-subtitle{font-size:.9rem;color:var(--text-secondary);margin-bottom:24px}
-        .turnstile-status{font-size:.85rem;color:var(--text-secondary);margin-top:16px;min-height:1.5em}
-        .turnstile-status.error{color:var(--google-red)}
-        .turnstile-status.success{color:var(--google-green)}
-        .turnstile-retry-btn{margin-top:12px;padding:8px 20px;border-radius:var(--radius-full);background:var(--google-blue);color:#fff;font-weight:500;display:none;transition:background .2s}
-        .turnstile-retry-btn:hover{background:#3367D6}
+        /* ============ 基础重置 ============ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        /* Navbar */
-        .navbar{position:fixed;top:0;left:0;right:0;height:var(--nav-height);background:var(--nav-bg);border-bottom:1px solid var(--nav-border);z-index:1000;transition:box-shadow var(--transition),background var(--theme-transition),border-color var(--theme-transition)}
-        .navbar.scrolled{box-shadow:var(--shadow-sm)}
-        .navbar-container{max-width:1100px;margin:0 auto;padding:0 20px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
-        .navbar-brand{display:flex;align-items:center;gap:10px;font-size:1.05rem;font-weight:600;color:var(--text-primary);white-space:nowrap;flex-shrink:0}
-        .navbar-brand:hover{text-decoration:none}
-        .brand-dot{width:10px;height:10px;border-radius:50%;background:var(--google-blue);flex-shrink:0}
-        .navbar-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
-        .navbar-links{display:flex;align-items:center;gap:2px;list-style:none}
-        .navbar-links li a{display:block;padding:8px 14px;font-size:.9rem;font-weight:500;color:var(--text-secondary);border-radius:var(--radius-sm);transition:background var(--transition),color var(--theme-transition)}
-        .navbar-links li a:hover{background:var(--hover-bg);color:var(--text-primary);text-decoration:none}
-        .navbar-links li a.active{color:var(--google-blue);background:rgba(66,133,244,0.08)}
-        .nav-clock{display:flex;flex-direction:column;align-items:flex-end;margin-right:6px;line-height:1.2;user-select:none}
-        .nav-clock .nav-time{font-size:.85rem;font-weight:600;color:var(--text-primary);font-variant-numeric:tabular-nums}
-        .nav-clock .nav-date{font-size:.7rem;color:var(--text-secondary)}
-        .theme-toggle,.hamburger{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);font-size:1.1rem;transition:background var(--transition),color var(--theme-transition)}
-        .theme-toggle:hover,.hamburger:hover{background:var(--hover-bg);color:var(--text-primary)}
-        .hamburger{display:none;flex-direction:column;gap:4px;padding:8px;border-radius:var(--radius-sm)}
-        .hamburger span{display:block;width:22px;height:2px;background:var(--text-primary);border-radius:2px;transition:all .25s}
-        .hamburger.active span:nth-child(1){transform:translateY(6px) rotate(45deg)}
-        .hamburger.active span:nth-child(2){opacity:0;transform:scaleX(0)}
-        .hamburger.active span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
 
-        /* Main content */
-        .main-content{flex:1;margin-top:var(--nav-height);width:100%}
-        .page{display:none;animation:pageFadeIn .3s ease-out}
-        .page.active{display:block}
-        .hero-page.active{display:flex;flex-direction:column}
-        @keyframes pageFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        body {
+            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 15px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color var(--theme-transition), color var(--theme-transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-        .hero-page{min-height:calc(100vh - var(--nav-height));align-items:center;justify-content:center;padding:48px 24px;background:var(--bg);transition:background var(--theme-transition)}
-        .hero-content{text-align:center;max-width:560px;margin:0 auto;width:100%}
-        .color-bar{display:flex;gap:4px;justify-content:center;margin-bottom:32px}
-        .color-bar span{width:24px;height:4px;border-radius:2px}
-        .color-bar span:nth-child(1){background:var(--google-blue)}
-        .color-bar span:nth-child(2){background:var(--google-red)}
-        .color-bar span:nth-child(3){background:var(--google-yellow)}
-        .color-bar span:nth-child(4){background:var(--google-green)}
-        .hero-avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 24px;box-shadow:var(--shadow-md);transition:transform var(--transition),box-shadow var(--theme-transition);background:var(--bg-card)}
-        .hero-avatar:hover{transform:scale(1.04)}
-        .hero-name{font-size:2.4rem;font-weight:700;color:var(--text-primary);letter-spacing:.5px;margin-bottom:8px;line-height:1.3}
-        .hero-name .highlight{color:var(--google-blue)}
-        .hero-tagline{font-size:1.05rem;color:var(--text-secondary);margin-bottom:28px}
-        .hero-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:24px}
-        .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:var(--radius-full);font-size:.9rem;font-weight:500;transition:all var(--transition),background var(--theme-transition),border-color var(--theme-transition),color var(--theme-transition);border:1px solid transparent}
-        .btn-primary{background:var(--google-blue);color:#fff;border-color:var(--google-blue)}
-        .btn-primary:hover{background:#3367D6;border-color:#3367D6;box-shadow:var(--shadow-sm);transform:translateY(-1px)}
-        .btn-outline{background:transparent;color:var(--google-blue);border-color:var(--border-color)}
-        .btn-outline:hover{background:rgba(66,133,244,0.06);border-color:var(--google-blue)}
+        a {
+            color: var(--google-blue);
+            text-decoration: none;
+            transition: color var(--theme-transition);
+        }
+        a:hover { text-decoration: underline; }
 
-        /* Calendar */
-        .calendar-widget{width:100%;max-width:280px;margin:28px auto 0;padding:20px;border-radius:var(--radius-md);background:var(--bg-card);border:1px solid var(--border-color);box-shadow:var(--shadow-sm);transition:background var(--theme-transition),border-color var(--theme-transition),box-shadow var(--theme-transition)}
-        .calendar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-        .calendar-title{font-size:.9rem;font-weight:600;color:var(--text-primary)}
-        .calendar-nav-btn{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);font-size:.8rem;transition:background var(--transition),color var(--theme-transition)}
-        .calendar-nav-btn:hover{background:var(--hover-bg);color:var(--text-primary)}
-        .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
-        .calendar-weekday{font-size:.7rem;font-weight:500;color:var(--text-muted);padding:4px 0}
-        .calendar-day{font-size:.8rem;padding:4px 0;border-radius:4px;color:var(--text-primary);transition:background var(--transition),color var(--theme-transition)}
-        .calendar-day:hover{background:var(--hover-bg)}
-        .calendar-day.other-month{color:var(--text-muted);opacity:.5}
-        .calendar-day.today{background:var(--google-blue);color:#fff;font-weight:600}
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
 
-        /* About & Contact */
-        .section-page{padding:48px 24px 64px;background:var(--bg);transition:background var(--theme-transition)}
-        .section-container{max-width:800px;margin:0 auto}
-        .section-title{font-size:1.6rem;font-weight:600;color:var(--text-primary);margin-bottom:8px;letter-spacing:.3px}
-        .section-subtitle{color:var(--text-secondary);font-size:.95rem;margin-bottom:32px}
-        .about-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:32px 28px;box-shadow:var(--shadow-sm);transition:box-shadow var(--transition),background var(--theme-transition),border-color var(--theme-transition)}
-        .about-card:hover{box-shadow:var(--shadow-md)}
-        .about-text{font-size:.95rem;line-height:1.8;margin-bottom:20px;color:var(--text-primary)}
-        .about-text:last-of-type{margin-bottom:24px}
-        .about-tags{display:flex;flex-wrap:wrap;gap:8px}
-        .about-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius-full);font-size:.8rem;font-weight:500;border:1px solid var(--border-color);background:var(--bg);color:var(--text-secondary);transition:all var(--transition),background var(--theme-transition),border-color var(--theme-transition),color var(--theme-transition)}
-        .about-tag i{font-size:.7rem}
-        .about-tag:nth-child(1) i{color:var(--google-blue)}
-        .about-tag:nth-child(2) i{color:var(--google-red)}
-        .about-tag:nth-child(3) i{color:var(--google-yellow)}
-        .about-tag:nth-child(4) i{color:var(--google-green)}
-        .about-tag:hover{border-color:var(--google-blue);background:rgba(66,133,244,0.05)}
-        .social-grid{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
-        .social-link{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:var(--radius-sm);border:1px solid var(--border-color);background:var(--bg-card);color:var(--text-secondary);font-size:.9rem;font-weight:500;transition:all var(--transition),background var(--theme-transition),border-color var(--theme-transition),color var(--theme-transition);box-shadow:var(--shadow-sm);cursor:pointer;text-decoration:none;position:relative}
-        .social-link i{font-size:1.1rem;width:20px;text-align:center}
-        .social-link:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);text-decoration:none}
-        .social-link[data-platform="bilibili"] i{color:#00A1D6}
-        .social-link[data-platform="qq"] i{color:#12B7F5}
-        .social-link[data-platform="weibo"] i{color:#E6162D}
-        .social-link[data-platform="email"] i{color:var(--google-blue)}
-        .social-link[data-platform="bilibili"]:hover{border-color:#00A1D6}
-        .social-link[data-platform="qq"]:hover{border-color:#12B7F5}
-        .social-link[data-platform="weibo"]:hover{border-color:#E6162D}
-        .social-link[data-platform="email"]:hover{border-color:var(--google-blue)}
-        .social-link[data-platform="qq"]::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--text-primary);color:var(--bg);padding:6px 12px;border-radius:6px;font-size:.78rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:10;box-shadow:var(--shadow-md)}
-        .social-link[data-platform="qq"]:hover::after,.social-link[data-platform="qq"]:focus-visible::after{opacity:1}
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+            transition: color var(--theme-transition);
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--google-blue);
+            outline-offset: 2px;
+        }
+
+        /* ============ 验证拦截层 ============ */
+        .turnstile-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 24px;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .turnstile-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .turnstile-box {
+            text-align: center;
+            max-width: 360px;
+            width: 100%;
+        }
+
+        .turnstile-logo {
+            font-size: 2.5rem;
+            color: var(--google-blue);
+            margin-bottom: 16px;
+        }
+
+        .turnstile-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .turnstile-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* ============ 导航栏 ============ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--nav-border);
+            z-index: 1000;
+            transition: box-shadow var(--transition), background var(--theme-transition), border-color var(--theme-transition);
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .navbar-brand:hover { text-decoration: none; }
+
+        .brand-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--google-blue);
+            flex-shrink: 0;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            list-style: none;
+        }
+
+        .navbar-links li a {
+            display: block;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            border-radius: var(--radius-sm);
+            transition: background var(--transition), color var(--theme-transition);
+        }
+        .navbar-links li a:hover {
+            background: var(--hover-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        .navbar-links li a.active {
+            color: var(--google-blue);
+            background: rgba(66, 133, 244, 0.08);
+        }
+
+        .nav-clock {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-right: 6px;
+            line-height: 1.2;
+            user-select: none;
+        }
+        .nav-clock .nav-time {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+        }
+        .nav-clock .nav-date {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .theme-toggle,
+        .hamburger {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            transition: background var(--transition), color var(--theme-transition);
+        }
+        .theme-toggle:hover,
+        .hamburger:hover {
+            background: var(--hover-bg);
+            color: var(--text-primary);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            padding: 8px;
+            border-radius: var(--radius-sm);
+        }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.25s ease;
+        }
+        .hamburger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+        /* ============ 主内容区 ============ */
+        .main-content {
+            flex: 1;
+            margin-top: var(--nav-height);
+            width: 100%;
+        }
+
+        .page {
+            display: none;
+            animation: pageFadeIn 0.3s ease-out;
+        }
+        .page.active { display: block; }
+        .hero-page.active { display: flex; flex-direction: column; }
+
+        @keyframes pageFadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============ 首页 ============ */
+        .hero-page {
+            min-height: calc(100vh - var(--nav-height));
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+            background: var(--bg);
+            transition: background var(--theme-transition);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 560px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .color-bar {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+        .color-bar span {
+            width: 24px;
+            height: 4px;
+            border-radius: 2px;
+        }
+        .color-bar span:nth-child(1) { background: var(--google-blue); }
+        .color-bar span:nth-child(2) { background: var(--google-red); }
+        .color-bar span:nth-child(3) { background: var(--google-yellow); }
+        .color-bar span:nth-child(4) { background: var(--google-green); }
+
+        .hero-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 24px;
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition), box-shadow var(--theme-transition);
+            background: var(--bg-card);
+        }
+        .hero-avatar:hover { transform: scale(1.04); }
+
+        .hero-name {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .hero-name .highlight { color: var(--google-blue); }
+
+        .hero-tagline {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            transition: all var(--transition), background var(--theme-transition), border-color var(--theme-transition), color var(--theme-transition);
+            border: 1px solid transparent;
+        }
+        .btn-primary {
+            background: var(--google-blue);
+            color: #fff;
+            border-color: var(--google-blue);
+        }
+        .btn-primary:hover {
+            background: #3367D6;
+            border-color: #3367D6;
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-1px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--google-blue);
+            border-color: var(--border-color);
+        }
+        .btn-outline:hover {
+            background: rgba(66, 133, 244, 0.06);
+            border-color: var(--google-blue);
+        }
+
+        /* ============ 日历组件 ============ */
+        .calendar-widget {
+            width: 100%;
+            max-width: 280px;
+            margin: 28px auto 0;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: background var(--theme-transition), border-color var(--theme-transition), box-shadow var(--theme-transition);
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .calendar-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .calendar-nav-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            transition: background var(--transition), color var(--theme-transition);
+        }
+        .calendar-nav-btn:hover {
+            background: var(--hover-bg);
+            color: var(--text-primary);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            text-align: center;
+        }
+
+        .calendar-weekday {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 4px 0;
+        }
+
+        .calendar-day {
+            font-size: 0.8rem;
+            padding: 4px 0;
+            border-radius: 4px;
+            color: var(--text-primary);
+            transition: background var(--transition), color var(--theme-transition);
+        }
+        .calendar-day:hover { background: var(--hover-bg); }
+        .calendar-day.other-month { color: var(--text-muted); opacity: 0.5; }
+        .calendar-day.today {
+            background: var(--google-blue);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* ============ 通用页面样式 ============ */
+        .section-page {
+            padding: 48px 24px 64px;
+            background: var(--bg);
+            transition: background var(--theme-transition);
+        }
+
+        .section-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+
+        /* ============ 关于我 ============ */
+        .about-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 32px 28px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow var(--transition), background var(--theme-transition), border-color var(--theme-transition);
+        }
+        .about-card:hover { box-shadow: var(--shadow-md); }
+
+        .about-text {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        .about-text:last-of-type { margin-bottom: 24px; }
+
+        .about-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .about-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            background: var(--bg);
+            color: var(--text-secondary);
+            transition: all var(--transition), background var(--theme-transition), border-color var(--theme-transition), color var(--theme-transition);
+        }
+        .about-tag i { font-size: 0.7rem; }
+        .about-tag:nth-child(1) i { color: var(--google-blue); }
+        .about-tag:nth-child(2) i { color: var(--google-red); }
+        .about-tag:nth-child(3) i { color: var(--google-yellow); }
+        .about-tag:nth-child(4) i { color: var(--google-green); }
+        .about-tag:hover {
+            border-color: var(--google-blue);
+            background: rgba(66, 133, 244, 0.05);
+        }
+
+        /* ============ 联系我 ============ */
+        .social-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 4px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all var(--transition), background var(--theme-transition), border-color var(--theme-transition), color var(--theme-transition);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+        }
+        .social-link i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+        .social-link:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        .social-link[data-platform="bilibili"] i { color: #00A1D6; }
+        .social-link[data-platform="qq"] i { color: #12B7F5; }
+        .social-link[data-platform="weibo"] i { color: #E6162D; }
+        .social-link[data-platform="email"] i { color: var(--google-blue); }
+        .social-link[data-platform="bilibili"]:hover { border-color: #00A1D6; }
+        .social-link[data-platform="qq"]:hover { border-color: #12B7F5; }
+        .social-link[data-platform="weibo"]:hover { border-color: #E6162D; }
+        .social-link[data-platform="email"]:hover { border-color: var(--google-blue); }
+
+        .social-link[data-platform="qq"]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-primary);
+            color: var(--bg);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s ease;
+            z-index: 10;
+            box-shadow: var(--shadow-md);
+        }
+        .social-link[data-platform="qq"]:hover::after,
+        .social-link[data-platform="qq"]:focus-visible::after { opacity: 1; }
 
         /* Toast */
-        .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--text-primary);color:var(--bg);padding:10px 20px;border-radius:8px;font-size:.85rem;font-weight:500;box-shadow:var(--shadow-lg);z-index:2000;opacity:0;transition:transform .25s,opacity .25s,background var(--theme-transition),color var(--theme-transition);pointer-events:none;white-space:nowrap}
-        .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-
-        /* Footer */
-        .footer{border-top:1px solid var(--border-color);padding:20px 24px;text-align:center;background:var(--bg);transition:border-color var(--theme-transition),background var(--theme-transition)}
-        .footer-text{font-size:.8rem;color:var(--text-muted)}
-        .footer-text a{color:var(--text-secondary)}
-        .footer-text a:hover{color:var(--google-blue)}
-
-        .theme-transitioning,.theme-transitioning *,.theme-transitioning *::before,.theme-transitioning *::after{transition:background-color .5s cubic-bezier(.4,0,.2,1),color .5s cubic-bezier(.4,0,.2,1),border-color .5s cubic-bezier(.4,0,.2,1),box-shadow .5s cubic-bezier(.4,0,.2,1)!important}
-
-        @media (max-width:768px){
-            :root{--nav-height:54px}
-            .navbar-container{padding:0 14px}
-            .navbar-links{position:fixed;top:var(--nav-height);left:0;right:0;background:var(--nav-bg);border-bottom:1px solid var(--border-color);flex-direction:column;padding:12px 16px;gap:2px;box-shadow:var(--shadow-md);transform:translateY(-120%);opacity:0;pointer-events:none;transition:transform .25s,opacity .2s,background var(--theme-transition),border-color var(--theme-transition);z-index:999}
-            .navbar-links.open{transform:translateY(0);opacity:1;pointer-events:auto}
-            .navbar-links li{width:100%}
-            .navbar-links li a{display:block;padding:12px 14px;font-size:.9rem;text-align:left;border-radius:6px}
-            .hamburger{display:flex}
-            .nav-clock .nav-date{display:none}
-            .hero-page{padding:32px 16px;min-height:calc(100vh - var(--nav-height))}
-            .hero-avatar{width:100px;height:100px;margin-bottom:20px}
-            .hero-name{font-size:1.8rem}
-            .hero-tagline{font-size:.9rem;margin-bottom:22px}
-            .calendar-widget{padding:16px;max-width:260px}
-            .section-page{padding:36px 16px 48px}
-            .section-title{font-size:1.3rem}
-            .about-card{padding:24px 18px}
-            .about-text{font-size:.9rem}
-            .social-link{padding:10px 14px;font-size:.85rem;flex:1 1 calc(50% - 14px);justify-content:center}
-            .social-grid{gap:10px}
-            .toast{font-size:.8rem;padding:8px 16px}
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text-primary);
+            color: var(--bg);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            box-shadow: var(--shadow-lg);
+            z-index: 2000;
+            opacity: 0;
+            transition: transform 0.25s ease, opacity 0.25s ease, background var(--theme-transition), color var(--theme-transition);
+            pointer-events: none;
+            white-space: nowrap;
         }
-        @media (max-width:480px){
-            .hero-avatar{width:80px;height:80px}
-            .hero-name{font-size:1.5rem}
-            .hero-tagline{font-size:.85rem}
-            .btn{padding:8px 16px;font-size:.8rem}
-            .about-tag{padding:5px 10px;font-size:.75rem}
-            .social-link{flex:1 1 100%}
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
         }
-        @media (prefers-reduced-motion:reduce){
-            *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-            html{scroll-behavior:auto}
+
+        /* ============ 页脚 ============ */
+        .footer {
+            border-top: 1px solid var(--border-color);
+            padding: 20px 24px;
+            text-align: center;
+            background: var(--bg);
+            transition: border-color var(--theme-transition), background var(--theme-transition);
+        }
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .footer-text a { color: var(--text-secondary); }
+        .footer-text a:hover { color: var(--google-blue); }
+
+        /* ============ 主题切换过渡 ============ */
+        .theme-transitioning,
+        .theme-transitioning *,
+        .theme-transitioning *::before,
+        .theme-transitioning *::after {
+            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+
+        /* ============ 响应式设计 ============ */
+        @media (max-width: 768px) {
+            :root { --nav-height: 54px; }
+
+            .navbar-container { padding: 0 14px; }
+
+            .navbar-links {
+                position: fixed;
+                top: var(--nav-height);
+                left: 0;
+                right: 0;
+                background: var(--nav-bg);
+                border-bottom: 1px solid var(--border-color);
+                flex-direction: column;
+                padding: 12px 16px;
+                gap: 2px;
+                box-shadow: var(--shadow-md);
+                transform: translateY(-120%);
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 0.25s ease, opacity 0.2s ease, background var(--theme-transition), border-color var(--theme-transition);
+                z-index: 999;
+            }
+            .navbar-links.open {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .navbar-links li { width: 100%; }
+            .navbar-links li a {
+                display: block;
+                padding: 12px 14px;
+                font-size: 0.9rem;
+                text-align: left;
+                border-radius: 6px;
+            }
+
+            .hamburger { display: flex; }
+            .nav-clock .nav-date { display: none; }
+
+            .hero-page {
+                padding: 32px 16px;
+                min-height: calc(100vh - var(--nav-height));
+            }
+            .hero-avatar {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
+            }
+            .hero-name { font-size: 1.8rem; }
+            .hero-tagline { font-size: 0.9rem; margin-bottom: 22px; }
+
+            .calendar-widget { padding: 16px; max-width: 260px; }
+
+            .section-page { padding: 36px 16px 48px; }
+            .section-title { font-size: 1.3rem; }
+            .about-card { padding: 24px 18px; }
+            .about-text { font-size: 0.9rem; }
+
+            .social-link {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+                flex: 1 1 calc(50% - 14px);
+                justify-content: center;
+            }
+            .social-grid { gap: 10px; }
+            .toast { font-size: 0.8rem; padding: 8px 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-avatar { width: 80px; height: 80px; }
+            .hero-name { font-size: 1.5rem; }
+            .hero-tagline { font-size: 0.85rem; }
+            .btn { padding: 8px 16px; font-size: 0.8rem; }
+            .about-tag { padding: 5px 10px; font-size: 0.75rem; }
+            .social-link { flex: 1 1 100%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
         }
     </style>
 </head>
 <body>
-    <!-- Turnstile Overlay -->
+
+    <!-- ==================== Turnstile 验证拦截层 ==================== -->
     <div class="turnstile-overlay" id="turnstileOverlay">
         <div class="turnstile-box">
-            <div class="turnstile-logo"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="turnstile-logo">
+                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            </div>
             <h1 class="turnstile-title">正在验证，请稍候...</h1>
             <p class="turnstile-subtitle">为了保障网站安全，请完成以下验证</p>
+            <!-- Turnstile 组件，data-callback 指定验证成功后的回调 -->
             <div class="cf-turnstile"
                  data-sitekey="0x4AAAAAAETOfEreWX4HJ7CZ"
-                 data-theme="auto"
-                 data-callback="turnstileCallback"
-                 data-expired-callback="turnstileExpired"
-                 data-error-callback="turnstileError">
+                 data-callback="turnstileCallback">
             </div>
-            <div class="turnstile-status" id="turnstileStatus" aria-live="polite"></div>
-            <button class="turnstile-retry-btn" id="turnstileRetryBtn">
-                <i class="fa-solid fa-rotate"></i> 重新验证
-            </button>
         </div>
     </div>
 
-    <!-- Main site -->
-    <div id="siteContent" style="display:none;">
+    <!-- ==================== 网站主体内容 ==================== -->
+    <div id="siteContent" style="display: none;">
+        <!-- 导航栏 -->
         <header class="navbar" id="navbar" role="banner">
-            <nav class="navbar-container" aria-label="主导航">
-                <a href="#home" class="navbar-brand" id="brandLink">
+            <nav class="navbar-container" role="navigation" aria-label="主导航">
+                <a href="#home" class="navbar-brand" id="brandLink" aria-label="返回首页">
                     <span class="brand-dot"></span>
                     <span>弦月剑仙</span>
                 </a>
+
                 <div class="navbar-right">
                     <ul class="navbar-links" id="navLinks" role="menubar">
                         <li role="none"><a href="#home" role="menuitem" data-page="home" class="active" aria-current="page">首页</a></li>
                         <li role="none"><a href="#about" role="menuitem" data-page="about">关于我</a></li>
                         <li role="none"><a href="#contact" role="menuitem" data-page="contact">联系我</a></li>
                     </ul>
+
                     <div class="nav-clock" aria-label="当前时间">
                         <span class="nav-time" id="navTime">00:00:00</span>
                         <span class="nav-date" id="navDate">2026/1/1</span>
                     </div>
-                    <button class="theme-toggle" id="themeToggle" aria-label="切换深色模式" aria-pressed="false">
-                        <i class="fa-solid fa-moon" id="themeIcon"></i>
+
+                    <button class="theme-toggle" id="themeToggle" aria-label="切换深色模式" title="切换深色模式" aria-pressed="false">
+                        <i class="fa-solid fa-moon" id="themeIcon" aria-hidden="true"></i>
                     </button>
+
                     <button class="hamburger" id="hamburger" aria-label="切换菜单" aria-expanded="false" aria-controls="navLinks">
                         <span></span><span></span><span></span>
                     </button>
@@ -275,151 +838,201 @@
             </nav>
         </header>
 
+        <!-- 主内容区 -->
         <main class="main-content" id="mainContent">
+
+            <!-- 首页 -->
             <section class="page hero-page active" id="page-home" aria-label="首页">
                 <div class="hero-content">
-                    <div class="color-bar" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-                    <img class="hero-avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='60' fill='%234285F4'/%3E%3Ctext x='60' y='68' font-size='40' fill='white' text-anchor='middle' font-family='sans-serif'%3E弦%3C/text%3E%3C/svg%3E" alt="弦月剑仙的头像" width="120" height="120" loading="eager">
+                    <div class="color-bar" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <img class="hero-avatar"
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='60' fill='%234285F4'/%3E%3Ctext x='60' y='68' font-size='40' fill='white' text-anchor='middle' font-family='sans-serif'%3E弦%3C/text%3E%3C/svg%3E"
+                    alt="弦月剑仙的头像"
+                    width="120" height="120" loading="eager">
                     <h1 class="hero-name">弦月<span class="highlight">剑仙</span></h1>
                     <p class="hero-tagline">嗨，我是弦月剑仙，分享有趣的内容与生活记录。</p>
+
+                    <!-- 日历组件 -->
                     <div class="calendar-widget">
                         <div class="calendar-header">
-                            <button class="calendar-nav-btn" id="prevMonthBtn" aria-label="上个月"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button class="calendar-nav-btn" id="prevMonthBtn" aria-label="上个月">
+                                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                            </button>
                             <span class="calendar-title" id="calendarTitle">2026年1月</span>
-                            <button class="calendar-nav-btn" id="nextMonthBtn" aria-label="下个月"><i class="fa-solid fa-chevron-right"></i></button>
+                            <button class="calendar-nav-btn" id="nextMonthBtn" aria-label="下个月">
+                                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                            </button>
                         </div>
                         <div class="calendar-grid" id="calendarGrid"></div>
                     </div>
+
                     <div class="hero-actions">
-                        <button class="btn btn-primary" id="heroAboutBtn">了解我 <i class="fa-solid fa-arrow-right"></i></button>
-                        <button class="btn btn-outline" id="heroContactBtn"><i class="fa-solid fa-paper-plane"></i> 联系我</button>
+                        <button class="btn btn-primary" id="heroAboutBtn">
+                            了解我 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-outline" id="heroContactBtn">
+                            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> 联系我
+                        </button>
                     </div>
                 </div>
             </section>
 
+            <!-- 关于我 -->
             <section class="page section-page" id="page-about" aria-label="关于我">
                 <div class="section-container">
                     <h2 class="section-title">关于我</h2>
                     <p class="section-subtitle">一个热爱内容创作与分享的人</p>
                     <div class="about-card">
-                        <p class="about-text">我是<strong>弦月剑仙</strong>，目前在做内容创作和分享。平时喜欢研究一些有趣的话题，也愿意把自己的经验和想法整理出来，和大家一起交流。</p>
-                        <p class="about-text">这个主页会不定期更新一些内容，包括创作笔记、生活记录和实用技巧。如果你对某方面话题感兴趣，欢迎留言告诉我。</p>
+                        <p class="about-text">
+                            我是<strong>弦月剑仙</strong>，目前在做内容创作和分享。
+                            平时喜欢研究一些有趣的话题，也愿意把自己的经验和想法整理出来，和大家一起交流。
+                        </p>
+                        <p class="about-text">
+                            这个主页会不定期更新一些内容，包括创作笔记、生活记录和实用技巧。如果你对某方面话题感兴趣，欢迎留言告诉我。
+                        </p>
                         <div class="about-tags" aria-label="个人特质">
-                            <span class="about-tag"><i class="fa-solid fa-pen"></i> 内容创作</span>
-                            <span class="about-tag"><i class="fa-solid fa-book"></i> 持续学习</span>
-                            <span class="about-tag"><i class="fa-solid fa-comments"></i> 乐于交流</span>
-                            <span class="about-tag"><i class="fa-solid fa-lightbulb"></i> 保持好奇</span>
+                            <span class="about-tag"><i class="fa-solid fa-pen" aria-hidden="true"></i> 内容创作</span>
+                            <span class="about-tag"><i class="fa-solid fa-book" aria-hidden="true"></i> 持续学习</span>
+                            <span class="about-tag"><i class="fa-solid fa-comments" aria-hidden="true"></i> 乐于交流</span>
+                            <span class="about-tag"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> 保持好奇</span>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- 联系我 -->
             <section class="page section-page" id="page-contact" aria-label="联系我">
                 <div class="section-container">
                     <h2 class="section-title">联系我</h2>
                     <p class="section-subtitle">可以通过以下平台找到我</p>
+
                     <div class="social-grid">
-                        <a href="https://b23.tv/KvypmyG" target="_blank" rel="noopener noreferrer" class="social-link" data-platform="bilibili" aria-label="Bilibili 个人空间"><i class="fa-brands fa-bilibili"></i> B站</a>
-                        <button class="social-link" data-platform="qq" id="qqButton" data-tooltip="3697823121" aria-label="复制QQ号"><i class="fa-brands fa-qq"></i> QQ</button>
-                        <a href="mailto:3697823121@qq.com" class="social-link" data-platform="email" aria-label="发送邮件"><i class="fa-solid fa-envelope"></i> 邮箱</a>
-                        <a href="https://weibo.com/u/7860314484" target="_blank" rel="noopener noreferrer" class="social-link" data-platform="weibo" aria-label="微博主页"><i class="fa-brands fa-weibo"></i> 微博</a>
+                        <a href="https://b23.tv/KvypmyG" target="_blank" rel="noopener noreferrer" class="social-link" data-platform="bilibili" aria-label="Bilibili 个人空间">
+                            <i class="fa-brands fa-bilibili" aria-hidden="true"></i> B站
+                        </a>
+                        <button class="social-link" data-platform="qq" id="qqButton" data-tooltip="3697823121" aria-label="复制QQ号">
+                            <i class="fa-brands fa-qq" aria-hidden="true"></i> QQ
+                        </button>
+                        <a href="mailto:3697823121@qq.com" class="social-link" data-platform="email" aria-label="发送邮件">
+                            <i class="fa-solid fa-envelope" aria-hidden="true"></i> 邮箱
+                        </a>
+                        <a href="https://weibo.com/u/7860314484" target="_blank" rel="noopener noreferrer" class="social-link" data-platform="weibo" aria-label="微博主页">
+                            <i class="fa-brands fa-weibo" aria-hidden="true"></i> 微博
+                        </a>
                     </div>
                 </div>
             </section>
+
         </main>
 
+        <!-- 页脚 -->
         <footer class="footer" role="contentinfo">
-            <p class="footer-text">&copy; 2026 <a href="#home" id="footerBrandLink">弦月剑仙</a> &middot; 保留所有权利</p>
+            <p class="footer-text">
+                &copy; 2026 <a href="#home" id="footerBrandLink">弦月剑仙</a> &middot; 保留所有权利
+            </p>
         </footer>
+
+        <!-- Toast 提示 -->
         <div class="toast" id="toast" role="status" aria-live="polite"></div>
     </div>
 
+    <!-- ==================== JavaScript ==================== -->
     <script>
-        // ---------- Turnstile 回调 ----------
-        window.turnstileCallback = function() {
+        // 全局回调函数：Turnstile 验证成功后调用
+        window.turnstileCallback = function(token) {
+            // 隐藏验证层，显示主站内容
             document.getElementById('turnstileOverlay').classList.add('hidden');
             document.getElementById('siteContent').style.display = '';
-            document.getElementById('turnstileStatus').textContent = '';
-            document.getElementById('turnstileStatus').className = 'turnstile-status';
-            document.getElementById('turnstileRetryBtn').style.display = 'none';
-            try { sessionStorage.setItem('turnstile_verified', 'true'); } catch(_) {}
+            // 记录会话已验证，刷新页面跳过验证
+            try {
+                sessionStorage.setItem('turnstile_verified', 'true');
+            } catch (e) {}
         };
-        window.turnstileExpired = function() {
-            const st = document.getElementById('turnstileStatus');
-            st.textContent = '验证已过期，请重新验证。';
-            st.className = 'turnstile-status error';
-            document.getElementById('turnstileRetryBtn').style.display = 'inline-flex';
-            if (typeof turnstile !== 'undefined') turnstile.reset();
-        };
-        window.turnstileError = function() {
-            const st = document.getElementById('turnstileStatus');
-            st.textContent = '验证出错，请重试。';
-            st.className = 'turnstile-status error';
-            document.getElementById('turnstileRetryBtn').style.display = 'inline-flex';
-        };
-        document.getElementById('turnstileRetryBtn').addEventListener('click', function() {
-            const st = document.getElementById('turnstileStatus');
-            st.textContent = '正在重新验证…';
-            st.className = 'turnstile-status';
-            this.style.display = 'none';
-            if (typeof turnstile !== 'undefined') turnstile.reset();
-        });
 
-        // 会话内跳过验证
+        // 检查是否已经验证过（会话内）
         (function() {
             try {
                 if (sessionStorage.getItem('turnstile_verified') === 'true') {
                     document.getElementById('turnstileOverlay').classList.add('hidden');
                     document.getElementById('siteContent').style.display = '';
                 }
-            } catch(_) {}
+            } catch (e) {}
         })();
 
-        // ---------- 主站逻辑 ----------
+        // 主站逻辑（原 IIFE 中的代码，保持不变）
         (function() {
             'use strict';
-            const $ = id => document.getElementById(id);
-            const navbar = $('navbar'), hamburger = $('hamburger'), navLinks = $('navLinks');
-            const brandLink = $('brandLink'), footerBrandLink = $('footerBrandLink');
-            const themeToggle = $('themeToggle'), themeIcon = $('themeIcon');
-            const heroAboutBtn = $('heroAboutBtn'), heroContactBtn = $('heroContactBtn');
-            const pages = document.querySelectorAll('.page');
-            const qqButton = $('qqButton'), toast = $('toast');
-            const body = document.body;
-            const navTimeEl = $('navTime'), navDateEl = $('navDate');
-            const calendarTitle = $('calendarTitle'), calendarGrid = $('calendarGrid');
-            const prevMonthBtn = $('prevMonthBtn'), nextMonthBtn = $('nextMonthBtn');
 
-            function showToast(msg) {
-                toast.textContent = msg;
+            // DOM 元素引用
+            const navbar = document.getElementById('navbar');
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            const brandLink = document.getElementById('brandLink');
+            const footerBrandLink = document.getElementById('footerBrandLink');
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const heroAboutBtn = document.getElementById('heroAboutBtn');
+            const heroContactBtn = document.getElementById('heroContactBtn');
+            const pages = document.querySelectorAll('.page');
+            const qqButton = document.getElementById('qqButton');
+            const toast = document.getElementById('toast');
+            const body = document.body;
+
+            const navTimeEl = document.getElementById('navTime');
+            const navDateEl = document.getElementById('navDate');
+            const calendarTitle = document.getElementById('calendarTitle');
+            const calendarGrid = document.getElementById('calendarGrid');
+            const prevMonthBtn = document.getElementById('prevMonthBtn');
+            const nextMonthBtn = document.getElementById('nextMonthBtn');
+
+            // ---------- Toast 提示 ----------
+            function showToast(message) {
+                toast.textContent = message;
                 toast.classList.add('show');
                 clearTimeout(toast._timer);
                 toast._timer = setTimeout(() => toast.classList.remove('show'), 2000);
             }
 
+            // ---------- 复制 QQ ----------
             function copyQQ() {
                 const qq = '3697823121';
                 if (navigator.clipboard && window.isSecureContext) {
-                    navigator.clipboard.writeText(qq).then(() => showToast('已复制QQ号：' + qq)).catch(() => fallbackCopy(qq));
-                } else fallbackCopy(qq);
+                    navigator.clipboard.writeText(qq)
+                        .then(() => showToast('已复制QQ号：' + qq))
+                        .catch(() => fallbackCopy(qq));
+                } else {
+                    fallbackCopy(qq);
+                }
             }
+
             function fallbackCopy(text) {
                 const ta = document.createElement('textarea');
                 ta.value = text;
-                ta.style.cssText = 'position:fixed;left:-9999px';
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
                 document.body.appendChild(ta);
                 ta.select();
                 let ok = false;
-                try { ok = document.execCommand('copy'); } catch(_) {}
+                try { ok = document.execCommand('copy'); } catch (e) {}
                 document.body.removeChild(ta);
                 showToast(ok ? '已复制QQ号：' + text : '复制失败，请手动输入：' + text);
             }
-            if (qqButton) qqButton.addEventListener('click', e => { e.preventDefault(); copyQQ(); });
 
+            if (qqButton) {
+                qqButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    copyQQ();
+                });
+            }
+
+            // ---------- 页面切换 ----------
             function switchPage(pageId, updateHash = true) {
                 pages.forEach(p => p.classList.remove('active'));
                 const target = document.getElementById('page-' + pageId);
                 if (target) target.classList.add('active');
+
                 const activeLink = navLinks.querySelector(`a[data-page="${pageId}"]`);
                 navLinks.querySelectorAll('a').forEach(link => {
                     const isActive = link === activeLink;
@@ -427,121 +1040,237 @@
                     if (isActive) link.setAttribute('aria-current', 'page');
                     else link.removeAttribute('aria-current');
                 });
+
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                if (updateHash && window.location.hash !== '#' + pageId) history.pushState(null, '', '#' + pageId);
+
+                if (updateHash && window.location.hash !== '#' + pageId) {
+                    history.pushState(null, '', '#' + pageId);
+                }
+
                 closeMobileMenu();
             }
 
+            // ---------- 移动菜单管理 ----------
             function closeMobileMenu() {
                 navLinks.classList.remove('open');
                 hamburger.classList.remove('active');
                 hamburger.setAttribute('aria-expanded', 'false');
                 body.style.overflow = '';
             }
+
             function openMobileMenu() {
                 navLinks.classList.add('open');
                 hamburger.classList.add('active');
                 hamburger.setAttribute('aria-expanded', 'true');
                 body.style.overflow = 'hidden';
             }
+
             function toggleMobileMenu() {
-                navLinks.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
+                if (navLinks.classList.contains('open')) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
             }
 
-            navLinks.addEventListener('click', e => {
+            // ---------- 事件绑定（使用委托） ----------
+            navLinks.addEventListener('click', (e) => {
                 const link = e.target.closest('a[data-page]');
-                if (link) { e.preventDefault(); switchPage(link.dataset.page, true); }
+                if (link) {
+                    e.preventDefault();
+                    switchPage(link.dataset.page, true);
+                }
             });
-            brandLink.addEventListener('click', e => { e.preventDefault(); switchPage('home', true); });
-            footerBrandLink.addEventListener('click', e => { e.preventDefault(); switchPage('home', true); });
+
+            brandLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchPage('home', true);
+            });
+
+            footerBrandLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchPage('home', true);
+            });
+
             if (heroAboutBtn) heroAboutBtn.addEventListener('click', () => switchPage('about', true));
             if (heroContactBtn) heroContactBtn.addEventListener('click', () => switchPage('contact', true));
+
             hamburger.addEventListener('click', toggleMobileMenu);
-            document.addEventListener('click', e => {
-                if (navLinks.classList.contains('open') && !navbar.contains(e.target)) closeMobileMenu();
+
+            document.addEventListener('click', (e) => {
+                if (navLinks.classList.contains('open') && !navbar.contains(e.target)) {
+                    closeMobileMenu();
+                }
             });
-            document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
 
-            window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 5), { passive: true });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMobileMenu();
+            });
 
+            // ---------- 导航栏滚动阴影 ----------
+            function handleNavScroll() {
+                navbar.classList.toggle('scrolled', window.scrollY > 5);
+            }
+            window.addEventListener('scroll', handleNavScroll, { passive: true });
+            handleNavScroll();
+
+            // ---------- 主题切换 ----------
             function syncThemeUI() {
                 const isDark = document.documentElement.classList.contains('dark-mode');
                 themeIcon.classList.toggle('fa-moon', !isDark);
                 themeIcon.classList.toggle('fa-sun', isDark);
                 themeToggle.setAttribute('aria-label', isDark ? '切换浅色模式' : '切换深色模式');
+                themeToggle.setAttribute('title', isDark ? '切换浅色模式' : '切换深色模式');
                 themeToggle.setAttribute('aria-pressed', String(isDark));
             }
+
             function setDarkMode(isDark, withTransition = true) {
                 const html = document.documentElement;
-                if (isDark === html.classList.contains('dark-mode') && withTransition) return;
-                if (withTransition) html.classList.add('theme-transitioning');
+                const current = html.classList.contains('dark-mode');
+                if (isDark === current && withTransition) return;
+
+                if (withTransition) {
+                    html.classList.add('theme-transitioning');
+                }
+
                 html.classList.toggle('dark-mode', isDark);
                 syncThemeUI();
-                try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(_) {}
+
+                try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
+
                 if (withTransition) {
                     clearTimeout(html._themeTransitionTimer);
-                    html._themeTransitionTimer = setTimeout(() => html.classList.remove('theme-transitioning'), 550);
+                    html._themeTransitionTimer = setTimeout(() => {
+                        html.classList.remove('theme-transitioning');
+                    }, 550);
                 }
             }
-            syncThemeUI();
-            themeToggle.addEventListener('click', () => setDarkMode(!document.documentElement.classList.contains('dark-mode'), true));
-            const mq = window.matchMedia('(prefers-color-scheme: dark)');
-            const handler = e => { try { if (!localStorage.getItem('theme')) setDarkMode(e.matches, false); } catch(_) {} };
-            if (mq.addEventListener) mq.addEventListener('change', handler);
-            else if (mq.addListener) mq.addListener(handler);
 
+            syncThemeUI();
+
+            themeToggle.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.contains('dark-mode');
+                setDarkMode(!isDark, true);
+            });
+
+            if (window.matchMedia) {
+                const mq = window.matchMedia('(prefers-color-scheme: dark)');
+                const handler = (e) => {
+                    try {
+                        if (!localStorage.getItem('theme')) setDarkMode(e.matches, false);
+                    } catch (err) {}
+                };
+                if (mq.addEventListener) mq.addEventListener('change', handler);
+                else if (mq.addListener) mq.addListener(handler);
+            }
+
+            // ---------- 导航栏时钟更新（setTimeout 递归 + 页面隐藏暂停） ----------
             function updateNavClock() {
                 const now = new Date();
-                navTimeEl.textContent = now.toTimeString().slice(0,8);
-                navDateEl.textContent = now.getFullYear() + '/' + (now.getMonth()+1) + '/' + now.getDate();
-                if (!document.hidden) setTimeout(updateNavClock, 1000);
-            }
-            updateNavClock();
-            document.addEventListener('visibilitychange', () => { if (!document.hidden) updateNavClock(); });
+                const h = String(now.getHours()).padStart(2, '0');
+                const m = String(now.getMinutes()).padStart(2, '0');
+                const s = String(now.getSeconds()).padStart(2, '0');
+                navTimeEl.textContent = `${h}:${m}:${s}`;
 
+                const year = now.getFullYear();
+                const month = now.getMonth() + 1;
+                const day = now.getDate();
+                navDateEl.textContent = `${year}/${month}/${day}`;
+
+                if (!document.hidden) {
+                    setTimeout(updateNavClock, 1000);
+                }
+            }
+
+            function startClock() {
+                updateNavClock();
+                document.addEventListener('visibilitychange', () => {
+                    if (!document.hidden) updateNavClock();
+                });
+            }
+
+            // ---------- 日历渲染 ----------
             let currentViewYear = new Date().getFullYear();
             let currentViewMonth = new Date().getMonth();
-            const WEEKDAYS = ['日','一','二','三','四','五','六'];
-            const CALENDAR_WEEKDAY_HTML = WEEKDAYS.map(d => `<div class="calendar-weekday">${d}</div>`).join('');
+
+            const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
+            const CALENDAR_WEEKDAY_HTML = WEEKDAYS.map(day => `<div class="calendar-weekday">${day}</div>`).join('');
 
             function renderCalendar() {
                 const firstDay = new Date(currentViewYear, currentViewMonth, 1);
                 const lastDay = new Date(currentViewYear, currentViewMonth + 1, 0);
                 const daysInMonth = lastDay.getDate();
                 const startWeekday = firstDay.getDay();
-                calendarTitle.textContent = `${currentViewYear}年${currentViewMonth+1}月`;
+
+                calendarTitle.textContent = `${currentViewYear}年${currentViewMonth + 1}月`;
+
                 const today = new Date();
-                const todayYear = today.getFullYear(), todayMonth = today.getMonth(), todayDate = today.getDate();
+                const todayYear = today.getFullYear();
+                const todayMonth = today.getMonth();
+                const todayDate = today.getDate();
+
                 const prevMonth = currentViewMonth === 0 ? 11 : currentViewMonth - 1;
                 const prevMonthYear = currentViewMonth === 0 ? currentViewYear - 1 : currentViewYear;
                 const daysInPrevMonth = new Date(prevMonthYear, prevMonth + 1, 0).getDate();
+
                 let html = CALENDAR_WEEKDAY_HTML;
-                for (let i = startWeekday - 1; i >= 0; i--) html += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
+
+                for (let i = startWeekday - 1; i >= 0; i--) {
+                    html += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
+                }
+
                 for (let d = 1; d <= daysInMonth; d++) {
                     const isToday = (currentViewYear === todayYear && currentViewMonth === todayMonth && d === todayDate);
                     html += `<div class="calendar-day${isToday ? ' today' : ''}">${d}</div>`;
                 }
-                const total = startWeekday + daysInMonth;
-                const remaining = (7 - (total % 7)) % 7;
-                for (let i = 1; i <= remaining; i++) html += `<div class="calendar-day other-month">${i}</div>`;
+
+                const totalCells = startWeekday + daysInMonth;
+                const remaining = (7 - (totalCells % 7)) % 7;
+                for (let i = 1; i <= remaining; i++) {
+                    html += `<div class="calendar-day other-month">${i}</div>`;
+                }
+
                 calendarGrid.innerHTML = html;
             }
-            prevMonthBtn.addEventListener('click', () => { currentViewMonth--; if (currentViewMonth < 0) { currentViewMonth=11; currentViewYear--; } renderCalendar(); });
-            nextMonthBtn.addEventListener('click', () => { currentViewMonth++; if (currentViewMonth > 11) { currentViewMonth=0; currentViewYear++; } renderCalendar(); });
-            renderCalendar();
 
-            window.addEventListener('popstate', () => {
-                const hash = window.location.hash.replace('#', '');
-                switchPage(['home','about','contact'].includes(hash) ? hash : 'home', false);
+            prevMonthBtn.addEventListener('click', () => {
+                currentViewMonth--;
+                if (currentViewMonth < 0) {
+                    currentViewMonth = 11;
+                    currentViewYear--;
+                }
+                renderCalendar();
             });
 
-            (function init() {
+            nextMonthBtn.addEventListener('click', () => {
+                currentViewMonth++;
+                if (currentViewMonth > 11) {
+                    currentViewMonth = 0;
+                    currentViewYear++;
+                }
+                renderCalendar();
+            });
+
+            // 初始化时钟与日历
+            startClock();
+            renderCalendar();
+
+            // ---------- 浏览器前进/后退 ----------
+            window.addEventListener('popstate', () => {
                 const hash = window.location.hash.replace('#', '');
-                const target = ['home','about','contact'].includes(hash) ? hash : 'home';
+                const validPages = ['home', 'about', 'contact'];
+                switchPage(validPages.includes(hash) ? hash : 'home', false);
+            });
+
+            // ---------- 初始页面设置 ----------
+            (function initPage() {
+                const hash = window.location.hash.replace('#', '');
+                const validPages = ['home', 'about', 'contact'];
+                const targetPage = validPages.includes(hash) ? hash : 'home';
                 pages.forEach(p => p.classList.remove('active'));
-                const el = document.getElementById('page-' + target);
-                if (el) el.classList.add('active');
-                const activeLink = navLinks.querySelector(`a[data-page="${target}"]`);
+                const target = document.getElementById('page-' + targetPage);
+                if (target) target.classList.add('active');
+                const activeLink = navLinks.querySelector(`a[data-page="${targetPage}"]`);
                 navLinks.querySelectorAll('a').forEach(link => {
                     const isActive = link === activeLink;
                     link.classList.toggle('active', isActive);
@@ -550,11 +1279,15 @@
                 });
             })();
 
+            // ---------- 响应式重置菜单 ----------
             let resizeTimer;
             window.addEventListener('resize', () => {
                 clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => { if (window.innerWidth > 768) closeMobileMenu(); }, 200);
+                resizeTimer = setTimeout(() => {
+                    if (window.innerWidth > 768) closeMobileMenu();
+                }, 200);
             });
+
         })();
     </script>
 </body>
