@@ -7,15 +7,8 @@
     <meta name="description" content="弦月剑仙的个人主页，分享内容创作与生活记录。">
     <meta name="theme-color" content="#4285F4">
 
-    <!-- 预连接优化 -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://challenges.cloudflare.com">
-
     <!-- Font Awesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Cloudflare Turnstile 脚本 -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
     <!-- 主题初始化脚本：防止闪烁 -->
     <script>
@@ -111,7 +104,9 @@
             text-decoration: none;
             transition: color var(--theme-transition);
         }
-        a:hover { text-decoration: underline; }
+        a:hover {
+            text-decoration: underline;
+        }
 
         img {
             max-width: 100%;
@@ -132,51 +127,6 @@
         :focus-visible {
             outline: 2px solid var(--google-blue);
             outline-offset: 2px;
-        }
-
-        /* ============ 验证拦截层 ============ */
-        .turnstile-overlay {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 24px;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .turnstile-overlay.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .turnstile-box {
-            text-align: center;
-            max-width: 360px;
-            width: 100%;
-        }
-
-        .turnstile-logo {
-            font-size: 2.5rem;
-            color: var(--google-blue);
-            margin-bottom: 16px;
-        }
-
-        .turnstile-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .turnstile-subtitle {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
         }
 
         /* ============ 导航栏 ============ */
@@ -216,8 +166,11 @@
             color: var(--text-primary);
             white-space: nowrap;
             flex-shrink: 0;
+            text-decoration: none;
         }
-        .navbar-brand:hover { text-decoration: none; }
+        .navbar-brand:hover {
+            text-decoration: none;
+        }
 
         .brand-dot {
             width: 10px;
@@ -249,6 +202,7 @@
             color: var(--text-secondary);
             border-radius: var(--radius-sm);
             transition: background var(--transition), color var(--theme-transition);
+            text-decoration: none;
         }
         .navbar-links li a:hover {
             background: var(--hover-bg);
@@ -260,6 +214,7 @@
             background: rgba(66, 133, 244, 0.08);
         }
 
+        /* 导航栏时钟 */
         .nav-clock {
             display: flex;
             flex-direction: column;
@@ -273,10 +228,12 @@
             font-weight: 600;
             color: var(--text-primary);
             font-variant-numeric: tabular-nums;
+            transition: color var(--theme-transition);
         }
         .nav-clock .nav-date {
             font-size: 0.7rem;
             color: var(--text-secondary);
+            transition: color var(--theme-transition);
         }
 
         .theme-toggle,
@@ -310,11 +267,18 @@
             height: 2px;
             background: var(--text-primary);
             border-radius: 2px;
-            transition: all 0.25s ease;
+            transition: all 0.25s ease, background var(--theme-transition);
         }
-        .hamburger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
 
         /* ============ 主内容区 ============ */
         .main-content {
@@ -327,12 +291,23 @@
             display: none;
             animation: pageFadeIn 0.3s ease-out;
         }
-        .page.active { display: block; }
-        .hero-page.active { display: flex; flex-direction: column; }
+        .page.active {
+            display: block;
+        }
+        .hero-page.active {
+            display: flex;
+            flex-direction: column;
+        }
 
         @keyframes pageFadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ============ 首页 ============ */
@@ -378,7 +353,9 @@
             transition: transform var(--transition), box-shadow var(--theme-transition);
             background: var(--bg-card);
         }
-        .hero-avatar:hover { transform: scale(1.04); }
+        .hero-avatar:hover {
+            transform: scale(1.04);
+        }
 
         .hero-name {
             font-size: 2.4rem;
@@ -387,13 +364,17 @@
             letter-spacing: 0.5px;
             margin-bottom: 8px;
             line-height: 1.3;
+            transition: color var(--theme-transition);
         }
-        .hero-name .highlight { color: var(--google-blue); }
+        .hero-name .highlight {
+            color: var(--google-blue);
+        }
 
         .hero-tagline {
             font-size: 1.05rem;
             color: var(--text-secondary);
             margin-bottom: 28px;
+            transition: color var(--theme-transition);
         }
 
         .hero-actions {
@@ -437,7 +418,7 @@
             border-color: var(--google-blue);
         }
 
-        /* ============ 日历组件 ============ */
+        /* ============ 日历组件（首页） ============ */
         .calendar-widget {
             width: 100%;
             max-width: 280px;
@@ -461,6 +442,7 @@
             font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-primary);
+            transition: color var(--theme-transition);
         }
 
         .calendar-nav-btn {
@@ -491,6 +473,7 @@
             font-weight: 500;
             color: var(--text-muted);
             padding: 4px 0;
+            transition: color var(--theme-transition);
         }
 
         .calendar-day {
@@ -500,8 +483,13 @@
             color: var(--text-primary);
             transition: background var(--transition), color var(--theme-transition);
         }
-        .calendar-day:hover { background: var(--hover-bg); }
-        .calendar-day.other-month { color: var(--text-muted); opacity: 0.5; }
+        .calendar-day:hover {
+            background: var(--hover-bg);
+        }
+        .calendar-day.other-month {
+            color: var(--text-muted);
+            opacity: 0.5;
+        }
         .calendar-day.today {
             background: var(--google-blue);
             color: #fff;
@@ -526,12 +514,14 @@
             color: var(--text-primary);
             margin-bottom: 8px;
             letter-spacing: 0.3px;
+            transition: color var(--theme-transition);
         }
 
         .section-subtitle {
             color: var(--text-secondary);
             font-size: 0.95rem;
             margin-bottom: 32px;
+            transition: color var(--theme-transition);
         }
 
         /* ============ 关于我 ============ */
@@ -543,15 +533,20 @@
             box-shadow: var(--shadow-sm);
             transition: box-shadow var(--transition), background var(--theme-transition), border-color var(--theme-transition);
         }
-        .about-card:hover { box-shadow: var(--shadow-md); }
+        .about-card:hover {
+            box-shadow: var(--shadow-md);
+        }
 
         .about-text {
             font-size: 0.95rem;
             line-height: 1.8;
             margin-bottom: 20px;
             color: var(--text-primary);
+            transition: color var(--theme-transition);
         }
-        .about-text:last-of-type { margin-bottom: 24px; }
+        .about-text:last-of-type {
+            margin-bottom: 24px;
+        }
 
         .about-tags {
             display: flex;
@@ -572,7 +567,9 @@
             color: var(--text-secondary);
             transition: all var(--transition), background var(--theme-transition), border-color var(--theme-transition), color var(--theme-transition);
         }
-        .about-tag i { font-size: 0.7rem; }
+        .about-tag i {
+            font-size: 0.7rem;
+        }
         .about-tag:nth-child(1) i { color: var(--google-blue); }
         .about-tag:nth-child(2) i { color: var(--google-red); }
         .about-tag:nth-child(3) i { color: var(--google-yellow); }
@@ -646,7 +643,9 @@
             box-shadow: var(--shadow-md);
         }
         .social-link[data-platform="qq"]:hover::after,
-        .social-link[data-platform="qq"]:focus-visible::after { opacity: 1; }
+        .social-link[data-platform="qq"]:focus-visible::after {
+            opacity: 1;
+        }
 
         /* Toast */
         .toast {
@@ -683,9 +682,15 @@
         .footer-text {
             font-size: 0.8rem;
             color: var(--text-muted);
+            transition: color var(--theme-transition);
         }
-        .footer-text a { color: var(--text-secondary); }
-        .footer-text a:hover { color: var(--google-blue); }
+        .footer-text a {
+            color: var(--text-secondary);
+            transition: color var(--theme-transition);
+        }
+        .footer-text a:hover {
+            color: var(--google-blue);
+        }
 
         /* ============ 主题切换过渡 ============ */
         .theme-transitioning,
@@ -700,9 +705,13 @@
 
         /* ============ 响应式设计 ============ */
         @media (max-width: 768px) {
-            :root { --nav-height: 54px; }
+            :root {
+                --nav-height: 54px;
+            }
 
-            .navbar-container { padding: 0 14px; }
+            .navbar-container {
+                padding: 0 14px;
+            }
 
             .navbar-links {
                 position: fixed;
@@ -726,7 +735,9 @@
                 opacity: 1;
                 pointer-events: auto;
             }
-            .navbar-links li { width: 100%; }
+            .navbar-links li {
+                width: 100%;
+            }
             .navbar-links li a {
                 display: block;
                 padding: 12px 14px;
@@ -735,8 +746,14 @@
                 border-radius: 6px;
             }
 
-            .hamburger { display: flex; }
-            .nav-clock .nav-date { display: none; }
+            .hamburger {
+                display: flex;
+            }
+
+            /* 移动端导航栏时钟：只显示时间，隐藏日期 */
+            .nav-clock .nav-date {
+                display: none;
+            }
 
             .hero-page {
                 padding: 32px 16px;
@@ -747,15 +764,32 @@
                 height: 100px;
                 margin-bottom: 20px;
             }
-            .hero-name { font-size: 1.8rem; }
-            .hero-tagline { font-size: 0.9rem; margin-bottom: 22px; }
+            .hero-name {
+                font-size: 1.8rem;
+            }
+            .hero-tagline {
+                font-size: 0.9rem;
+                margin-bottom: 22px;
+            }
 
-            .calendar-widget { padding: 16px; max-width: 260px; }
+            .calendar-widget {
+                padding: 16px;
+                max-width: 260px;
+            }
 
-            .section-page { padding: 36px 16px 48px; }
-            .section-title { font-size: 1.3rem; }
-            .about-card { padding: 24px 18px; }
-            .about-text { font-size: 0.9rem; }
+            .section-page {
+                padding: 36px 16px 48px;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .about-card {
+                padding: 24px 18px;
+            }
+            .about-text {
+                font-size: 0.9rem;
+            }
 
             .social-link {
                 padding: 10px 14px;
@@ -763,17 +797,38 @@
                 flex: 1 1 calc(50% - 14px);
                 justify-content: center;
             }
-            .social-grid { gap: 10px; }
-            .toast { font-size: 0.8rem; padding: 8px 16px; }
+            .social-grid {
+                gap: 10px;
+            }
+
+            .toast {
+                font-size: 0.8rem;
+                padding: 8px 16px;
+            }
         }
 
         @media (max-width: 480px) {
-            .hero-avatar { width: 80px; height: 80px; }
-            .hero-name { font-size: 1.5rem; }
-            .hero-tagline { font-size: 0.85rem; }
-            .btn { padding: 8px 16px; font-size: 0.8rem; }
-            .about-tag { padding: 5px 10px; font-size: 0.75rem; }
-            .social-link { flex: 1 1 100%; }
+            .hero-avatar {
+                width: 80px;
+                height: 80px;
+            }
+            .hero-name {
+                font-size: 1.5rem;
+            }
+            .hero-tagline {
+                font-size: 0.85rem;
+            }
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+            .about-tag {
+                padding: 5px 10px;
+                font-size: 0.75rem;
+            }
+            .social-link {
+                flex: 1 1 100%;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -783,185 +838,149 @@
                 animation-duration: 0.01ms !important;
                 transition-duration: 0.01ms !important;
             }
-            html { scroll-behavior: auto; }
+            html {
+                scroll-behavior: auto;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ==================== Turnstile 验证拦截层 ==================== -->
-    <div class="turnstile-overlay" id="turnstileOverlay">
-        <div class="turnstile-box">
-            <div class="turnstile-logo">
-                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+    <!-- ==================== 导航栏 ==================== -->
+    <header class="navbar" id="navbar" role="banner">
+        <nav class="navbar-container" role="navigation" aria-label="主导航">
+            <a href="#home" class="navbar-brand" id="brandLink" aria-label="返回首页">
+                <span class="brand-dot"></span>
+                <span>弦月剑仙</span>
+            </a>
+
+            <div class="navbar-right">
+                <ul class="navbar-links" id="navLinks" role="menubar">
+                    <li role="none"><a href="#home" role="menuitem" data-page="home" class="active" aria-current="page">首页</a></li>
+                    <li role="none"><a href="#about" role="menuitem" data-page="about">关于我</a></li>
+                    <li role="none"><a href="#contact" role="menuitem" data-page="contact">联系我</a></li>
+                </ul>
+
+                <!-- 导航栏时钟 -->
+                <div class="nav-clock" aria-label="当前时间">
+                    <span class="nav-time" id="navTime">00:00:00</span>
+                    <span class="nav-date" id="navDate">2026/1/1</span>
+                </div>
+
+                <button class="theme-toggle" id="themeToggle" aria-label="切换深色模式" title="切换深色模式" aria-pressed="false">
+                    <i class="fa-solid fa-moon" id="themeIcon" aria-hidden="true"></i>
+                </button>
+
+                <button class="hamburger" id="hamburger" aria-label="切换菜单" aria-expanded="false" aria-controls="navLinks">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
-            <h1 class="turnstile-title">正在验证，请稍候...</h1>
-            <p class="turnstile-subtitle">为了保障网站安全，请完成以下验证</p>
-            <!-- Turnstile 组件，data-callback 指定验证成功后的回调 -->
-            <div class="cf-turnstile"
-                 data-sitekey="0x4AAAAAAETOfEreWX4HJ7CZ"
-                 data-callback="turnstileCallback">
+        </nav>
+    </header>
+
+    <!-- ==================== 主内容区 ==================== -->
+    <main class="main-content" id="mainContent">
+
+        <!-- 首页 -->
+        <section class="page hero-page active" id="page-home" aria-label="首页">
+            <div class="hero-content">
+                <div class="color-bar" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+                <img class="hero-avatar"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='60' fill='%234285F4'/%3E%3Ctext x='60' y='68' font-size='40' fill='white' text-anchor='middle' font-family='sans-serif'%3E弦%3C/text%3E%3C/svg%3E"
+                alt="弦月剑仙的头像"
+                width="120" height="120" loading="eager">
+                <h1 class="hero-name">弦月<span class="highlight">剑仙</span></h1>
+                <p class="hero-tagline">嗨，我是弦月剑仙，分享有趣的内容与生活记录。</p>
+
+                <!-- 日历组件 -->
+                <div class="calendar-widget">
+                    <div class="calendar-header">
+                        <button class="calendar-nav-btn" id="prevMonthBtn" aria-label="上个月">
+                            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                        </button>
+                        <span class="calendar-title" id="calendarTitle">2026年1月</span>
+                        <button class="calendar-nav-btn" id="nextMonthBtn" aria-label="下个月">
+                            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- 日历单元格由 JavaScript 动态生成 -->
+                    </div>
+                </div>
+
+                <div class="hero-actions">
+                    <button class="btn btn-primary" id="heroAboutBtn">
+                        了解我 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-outline" id="heroContactBtn">
+                        <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> 联系我
+                    </button>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- ==================== 网站主体内容 ==================== -->
-    <div id="siteContent" style="display: none;">
-        <!-- 导航栏 -->
-        <header class="navbar" id="navbar" role="banner">
-            <nav class="navbar-container" role="navigation" aria-label="主导航">
-                <a href="#home" class="navbar-brand" id="brandLink" aria-label="返回首页">
-                    <span class="brand-dot"></span>
-                    <span>弦月剑仙</span>
-                </a>
-
-                <div class="navbar-right">
-                    <ul class="navbar-links" id="navLinks" role="menubar">
-                        <li role="none"><a href="#home" role="menuitem" data-page="home" class="active" aria-current="page">首页</a></li>
-                        <li role="none"><a href="#about" role="menuitem" data-page="about">关于我</a></li>
-                        <li role="none"><a href="#contact" role="menuitem" data-page="contact">联系我</a></li>
-                    </ul>
-
-                    <div class="nav-clock" aria-label="当前时间">
-                        <span class="nav-time" id="navTime">00:00:00</span>
-                        <span class="nav-date" id="navDate">2026/1/1</span>
+        <!-- 关于我 -->
+        <section class="page section-page" id="page-about" aria-label="关于我">
+            <div class="section-container">
+                <h2 class="section-title">关于我</h2>
+                <p class="section-subtitle">一个热爱内容创作与分享的人</p>
+                <div class="about-card">
+                    <p class="about-text">
+                        我是<strong>弦月剑仙</strong>，目前在做内容创作和分享。
+                        平时喜欢研究一些有趣的话题，也愿意把自己的经验和想法整理出来，和大家一起交流。
+                    </p>
+                    <p class="about-text">
+                        这个主页会不定期更新一些内容，包括创作笔记、生活记录和实用技巧。如果你对某方面话题感兴趣，欢迎留言告诉我。
+                    </p>
+                    <div class="about-tags" aria-label="个人特质">
+                        <span class="about-tag"><i class="fa-solid fa-pen" aria-hidden="true"></i> 内容创作</span>
+                        <span class="about-tag"><i class="fa-solid fa-book" aria-hidden="true"></i> 持续学习</span>
+                        <span class="about-tag"><i class="fa-solid fa-comments" aria-hidden="true"></i> 乐于交流</span>
+                        <span class="about-tag"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> 保持好奇</span>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <button class="theme-toggle" id="themeToggle" aria-label="切换深色模式" title="切换深色模式" aria-pressed="false">
-                        <i class="fa-solid fa-moon" id="themeIcon" aria-hidden="true"></i>
+        <!-- 联系我 -->
+        <section class="page section-page" id="page-contact" aria-label="联系我">
+            <div class="section-container">
+                <h2 class="section-title">联系我</h2>
+                <p class="section-subtitle">可以通过以下平台找到我</p>
+
+                <div class="social-grid">
+                    <a href="https://b23.tv/KvypmyG" target="_blank" rel="noopener noreferrer" class="social-link" data-platform="bilibili" aria-label="Bilibili 个人空间">
+                        <i class="fa-brands fa-bilibili" aria-hidden="true"></i> B站
+                    </a>
+                    <button class="social-link" data-platform="qq" id="qqButton" data-tooltip="3697823121" aria-label="复制QQ号">
+                        <i class="fa-brands fa-qq" aria-hidden="true"></i> QQ
                     </button>
-
-                    <button class="hamburger" id="hamburger" aria-label="切换菜单" aria-expanded="false" aria-controls="navLinks">
-                        <span></span><span></span><span></span>
-                    </button>
+                    <a href="mailto:3697823121@qq.com" class="social-link" data-platform="email" aria-label="发送邮件">
+                        <i class="fa-solid fa-envelope" aria-hidden="true"></i> 邮箱
+                    </a>
+                    <a href="https://weibo.com/u/7860314484" target="_blank" rel="noopener noreferrer" class="social-link" data-platform="weibo" aria-label="微博主页">
+                        <i class="fa-brands fa-weibo" aria-hidden="true"></i> 微博
+                    </a>
                 </div>
-            </nav>
-        </header>
+            </div>
+        </section>
 
-        <!-- 主内容区 -->
-        <main class="main-content" id="mainContent">
+    </main>
 
-            <!-- 首页 -->
-            <section class="page hero-page active" id="page-home" aria-label="首页">
-                <div class="hero-content">
-                    <div class="color-bar" aria-hidden="true">
-                        <span></span><span></span><span></span><span></span>
-                    </div>
-                    <img class="hero-avatar"
-                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='60' fill='%234285F4'/%3E%3Ctext x='60' y='68' font-size='40' fill='white' text-anchor='middle' font-family='sans-serif'%3E弦%3C/text%3E%3C/svg%3E"
-                    alt="弦月剑仙的头像"
-                    width="120" height="120" loading="eager">
-                    <h1 class="hero-name">弦月<span class="highlight">剑仙</span></h1>
-                    <p class="hero-tagline">嗨，我是弦月剑仙，分享有趣的内容与生活记录。</p>
+    <!-- ==================== 页脚 ==================== -->
+    <footer class="footer" role="contentinfo">
+        <p class="footer-text">
+            &copy; 2026 <a href="#home" id="footerBrandLink">弦月剑仙</a> &middot; 保留所有权利
+        </p>
+    </footer>
 
-                    <!-- 日历组件 -->
-                    <div class="calendar-widget">
-                        <div class="calendar-header">
-                            <button class="calendar-nav-btn" id="prevMonthBtn" aria-label="上个月">
-                                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-                            </button>
-                            <span class="calendar-title" id="calendarTitle">2026年1月</span>
-                            <button class="calendar-nav-btn" id="nextMonthBtn" aria-label="下个月">
-                                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <div class="calendar-grid" id="calendarGrid"></div>
-                    </div>
-
-                    <div class="hero-actions">
-                        <button class="btn btn-primary" id="heroAboutBtn">
-                            了解我 <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-                        </button>
-                        <button class="btn btn-outline" id="heroContactBtn">
-                            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> 联系我
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 关于我 -->
-            <section class="page section-page" id="page-about" aria-label="关于我">
-                <div class="section-container">
-                    <h2 class="section-title">关于我</h2>
-                    <p class="section-subtitle">一个热爱内容创作与分享的人</p>
-                    <div class="about-card">
-                        <p class="about-text">
-                            我是<strong>弦月剑仙</strong>，目前在做内容创作和分享。
-                            平时喜欢研究一些有趣的话题，也愿意把自己的经验和想法整理出来，和大家一起交流。
-                        </p>
-                        <p class="about-text">
-                            这个主页会不定期更新一些内容，包括创作笔记、生活记录和实用技巧。如果你对某方面话题感兴趣，欢迎留言告诉我。
-                        </p>
-                        <div class="about-tags" aria-label="个人特质">
-                            <span class="about-tag"><i class="fa-solid fa-pen" aria-hidden="true"></i> 内容创作</span>
-                            <span class="about-tag"><i class="fa-solid fa-book" aria-hidden="true"></i> 持续学习</span>
-                            <span class="about-tag"><i class="fa-solid fa-comments" aria-hidden="true"></i> 乐于交流</span>
-                            <span class="about-tag"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> 保持好奇</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 联系我 -->
-            <section class="page section-page" id="page-contact" aria-label="联系我">
-                <div class="section-container">
-                    <h2 class="section-title">联系我</h2>
-                    <p class="section-subtitle">可以通过以下平台找到我</p>
-
-                    <div class="social-grid">
-                        <a href="https://b23.tv/KvypmyG" target="_blank" rel="noopener noreferrer" class="social-link" data-platform="bilibili" aria-label="Bilibili 个人空间">
-                            <i class="fa-brands fa-bilibili" aria-hidden="true"></i> B站
-                        </a>
-                        <button class="social-link" data-platform="qq" id="qqButton" data-tooltip="3697823121" aria-label="复制QQ号">
-                            <i class="fa-brands fa-qq" aria-hidden="true"></i> QQ
-                        </button>
-                        <a href="mailto:3697823121@qq.com" class="social-link" data-platform="email" aria-label="发送邮件">
-                            <i class="fa-solid fa-envelope" aria-hidden="true"></i> 邮箱
-                        </a>
-                        <a href="https://weibo.com/u/7860314484" target="_blank" rel="noopener noreferrer" class="social-link" data-platform="weibo" aria-label="微博主页">
-                            <i class="fa-brands fa-weibo" aria-hidden="true"></i> 微博
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-
-        <!-- 页脚 -->
-        <footer class="footer" role="contentinfo">
-            <p class="footer-text">
-                &copy; 2026 <a href="#home" id="footerBrandLink">弦月剑仙</a> &middot; 保留所有权利
-            </p>
-        </footer>
-
-        <!-- Toast 提示 -->
-        <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    </div>
+    <!-- Toast 提示 -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <!-- ==================== JavaScript ==================== -->
     <script>
-        // 全局回调函数：Turnstile 验证成功后调用
-        window.turnstileCallback = function(token) {
-            // 隐藏验证层，显示主站内容
-            document.getElementById('turnstileOverlay').classList.add('hidden');
-            document.getElementById('siteContent').style.display = '';
-            // 记录会话已验证，刷新页面跳过验证
-            try {
-                sessionStorage.setItem('turnstile_verified', 'true');
-            } catch (e) {}
-        };
-
-        // 检查是否已经验证过（会话内）
-        (function() {
-            try {
-                if (sessionStorage.getItem('turnstile_verified') === 'true') {
-                    document.getElementById('turnstileOverlay').classList.add('hidden');
-                    document.getElementById('siteContent').style.display = '';
-                }
-            } catch (e) {}
-        })();
-
-        // 主站逻辑（原 IIFE 中的代码，保持不变）
         (function() {
             'use strict';
 
@@ -969,6 +988,7 @@
             const navbar = document.getElementById('navbar');
             const hamburger = document.getElementById('hamburger');
             const navLinks = document.getElementById('navLinks');
+            const navLinkItems = navLinks.querySelectorAll('a');
             const brandLink = document.getElementById('brandLink');
             const footerBrandLink = document.getElementById('footerBrandLink');
             const themeToggle = document.getElementById('themeToggle');
@@ -980,8 +1000,11 @@
             const toast = document.getElementById('toast');
             const body = document.body;
 
+            // 导航栏时钟元素
             const navTimeEl = document.getElementById('navTime');
             const navDateEl = document.getElementById('navDate');
+
+            // 日历元素
             const calendarTitle = document.getElementById('calendarTitle');
             const calendarGrid = document.getElementById('calendarGrid');
             const prevMonthBtn = document.getElementById('prevMonthBtn');
@@ -1015,7 +1038,9 @@
                 document.body.appendChild(ta);
                 ta.select();
                 let ok = false;
-                try { ok = document.execCommand('copy'); } catch (e) {}
+                try {
+                    ok = document.execCommand('copy');
+                } catch (e) {}
                 document.body.removeChild(ta);
                 showToast(ok ? '已复制QQ号：' + text : '复制失败，请手动输入：' + text);
             }
@@ -1033,9 +1058,8 @@
                 const target = document.getElementById('page-' + pageId);
                 if (target) target.classList.add('active');
 
-                const activeLink = navLinks.querySelector(`a[data-page="${pageId}"]`);
-                navLinks.querySelectorAll('a').forEach(link => {
-                    const isActive = link === activeLink;
+                navLinkItems.forEach(link => {
+                    const isActive = link.dataset.page === pageId;
                     link.classList.toggle('active', isActive);
                     if (isActive) link.setAttribute('aria-current', 'page');
                     else link.removeAttribute('aria-current');
@@ -1073,13 +1097,13 @@
                 }
             }
 
-            // ---------- 事件绑定（使用委托） ----------
-            navLinks.addEventListener('click', (e) => {
-                const link = e.target.closest('a[data-page]');
-                if (link) {
+            // ---------- 事件绑定 ----------
+            navLinkItems.forEach(link => {
+                link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    switchPage(link.dataset.page, true);
-                }
+                    const pageId = link.dataset.page;
+                    if (pageId) switchPage(pageId, true);
+                });
             });
 
             brandLink.addEventListener('click', (e) => {
@@ -1136,7 +1160,9 @@
                 html.classList.toggle('dark-mode', isDark);
                 syncThemeUI();
 
-                try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
+                try {
+                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                } catch (e) {}
 
                 if (withTransition) {
                     clearTimeout(html._themeTransitionTimer);
@@ -1164,7 +1190,7 @@
                 else if (mq.addListener) mq.addListener(handler);
             }
 
-            // ---------- 导航栏时钟更新（setTimeout 递归 + 页面隐藏暂停） ----------
+            // ---------- 导航栏时钟更新 ----------
             function updateNavClock() {
                 const now = new Date();
                 const h = String(now.getHours()).padStart(2, '0');
@@ -1176,31 +1202,17 @@
                 const month = now.getMonth() + 1;
                 const day = now.getDate();
                 navDateEl.textContent = `${year}/${month}/${day}`;
-
-                if (!document.hidden) {
-                    setTimeout(updateNavClock, 1000);
-                }
-            }
-
-            function startClock() {
-                updateNavClock();
-                document.addEventListener('visibilitychange', () => {
-                    if (!document.hidden) updateNavClock();
-                });
             }
 
             // ---------- 日历渲染 ----------
             let currentViewYear = new Date().getFullYear();
-            let currentViewMonth = new Date().getMonth();
-
-            const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
-            const CALENDAR_WEEKDAY_HTML = WEEKDAYS.map(day => `<div class="calendar-weekday">${day}</div>`).join('');
+            let currentViewMonth = new Date().getMonth(); // 0-11
 
             function renderCalendar() {
                 const firstDay = new Date(currentViewYear, currentViewMonth, 1);
                 const lastDay = new Date(currentViewYear, currentViewMonth + 1, 0);
                 const daysInMonth = lastDay.getDate();
-                const startWeekday = firstDay.getDay();
+                const startWeekday = firstDay.getDay(); // 0=周日
 
                 calendarTitle.textContent = `${currentViewYear}年${currentViewMonth + 1}月`;
 
@@ -1209,19 +1221,25 @@
                 const todayMonth = today.getMonth();
                 const todayDate = today.getDate();
 
+                let html = '';
+                const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+                for (let i = 0; i < 7; i++) {
+                    html += `<div class="calendar-weekday">${weekdays[i]}</div>`;
+                }
+
                 const prevMonth = currentViewMonth === 0 ? 11 : currentViewMonth - 1;
                 const prevMonthYear = currentViewMonth === 0 ? currentViewYear - 1 : currentViewYear;
                 const daysInPrevMonth = new Date(prevMonthYear, prevMonth + 1, 0).getDate();
 
-                let html = CALENDAR_WEEKDAY_HTML;
-
                 for (let i = startWeekday - 1; i >= 0; i--) {
-                    html += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
+                    const dayNum = daysInPrevMonth - i;
+                    html += `<div class="calendar-day other-month">${dayNum}</div>`;
                 }
 
                 for (let d = 1; d <= daysInMonth; d++) {
                     const isToday = (currentViewYear === todayYear && currentViewMonth === todayMonth && d === todayDate);
-                    html += `<div class="calendar-day${isToday ? ' today' : ''}">${d}</div>`;
+                    const cls = `calendar-day${isToday ? ' today' : ''}`;
+                    html += `<div class="${cls}">${d}</div>`;
                 }
 
                 const totalCells = startWeekday + daysInMonth;
@@ -1233,27 +1251,31 @@
                 calendarGrid.innerHTML = html;
             }
 
-            prevMonthBtn.addEventListener('click', () => {
+            function prevMonth() {
                 currentViewMonth--;
                 if (currentViewMonth < 0) {
                     currentViewMonth = 11;
                     currentViewYear--;
                 }
                 renderCalendar();
-            });
+            }
 
-            nextMonthBtn.addEventListener('click', () => {
+            function nextMonth() {
                 currentViewMonth++;
                 if (currentViewMonth > 11) {
                     currentViewMonth = 0;
                     currentViewYear++;
                 }
                 renderCalendar();
-            });
+            }
 
-            // 初始化时钟与日历
-            startClock();
+            prevMonthBtn.addEventListener('click', prevMonth);
+            nextMonthBtn.addEventListener('click', nextMonth);
+
+            // 初始化导航栏时钟和日历
+            updateNavClock();
             renderCalendar();
+            setInterval(updateNavClock, 1000);
 
             // ---------- 浏览器前进/后退 ----------
             window.addEventListener('popstate', () => {
@@ -1270,9 +1292,8 @@
                 pages.forEach(p => p.classList.remove('active'));
                 const target = document.getElementById('page-' + targetPage);
                 if (target) target.classList.add('active');
-                const activeLink = navLinks.querySelector(`a[data-page="${targetPage}"]`);
-                navLinks.querySelectorAll('a').forEach(link => {
-                    const isActive = link === activeLink;
+                navLinkItems.forEach(link => {
+                    const isActive = link.dataset.page === targetPage;
                     link.classList.toggle('active', isActive);
                     if (isActive) link.setAttribute('aria-current', 'page');
                     else link.removeAttribute('aria-current');
